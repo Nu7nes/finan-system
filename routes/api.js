@@ -9,10 +9,18 @@ const options = {
 }
 
 // router.get('/', (req, res) => { res.render('index') });
+router.get('/amounts', amountController.all)
 
-router.get('/:type', amountController.redirect);;
+router.get('/:type/:group', amountController.redirect);
 
-router.get('/:group', groupController.redirect);
+router.get('/groups', groupController.all)
+
+router.get('/group/:group', groupController.same);
+
+
+router.post('/amount',express.urlencoded({ extended: true }), amountController.addAmount);
+
+router.post('/group',express.urlencoded({ extended: true }), groupController.addGroup);
 
 // router.post('/', express.urlencoded({ extended: true }), linkController.addLink);
 
