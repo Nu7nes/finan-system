@@ -18,9 +18,9 @@ router.get('/groups', groupController.all)
 router.get('/group/:group', groupController.same);
 
 
-router.post('/amount',express.urlencoded({ extended: true }), amountController.addAmount);
+router.post('/new/amount',express.urlencoded({ extended: true }), amountController.addAmount);
 
-router.post('/group',express.urlencoded({ extended: true }), groupController.addGroup);
+router.post('/new/group',express.urlencoded({ extended: true }), groupController.addGroup);
 
 // router.post('/', express.urlencoded({ extended: true }), linkController.addLink);
 
