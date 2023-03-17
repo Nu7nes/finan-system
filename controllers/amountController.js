@@ -3,7 +3,7 @@ const Amount = require('../models/Amount');
 const all = async (req, res) => {
     try {
         let docs = await Amount.find()
-        res.send(docs)
+        res.json(JSON.stringify(docs))
     } catch (error) {
         res.send(error)
     }

@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const groupSchema = new mongoose.Schema({
        
     name: {type: String, required: true},
-    groupIndex: {type: Number, required: true}
     
 })
 
