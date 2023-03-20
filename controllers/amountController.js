@@ -23,11 +23,23 @@ const redirect = async (req, res) => {
 const addAmount = async (req, res) => {
     let amount = new Amount(req.body)
     try {
-        let doc = await amount.save()
-        res.send("Conta adicionada!")
+        let doc = await amount.save();
+        res.redirect('/');
     } catch (error) {
         console.log(error);
     }
 }
 
-module.exports = { all, redirect, addAmount }
+const deleteAmount = async (req, res) => {
+    let id = req.body.id;
+    // let group = new Group(req.params)
+    try {
+        await Amount.findByIdAndDelete(id);
+        // res.send(id)
+        res.status(200).send(id);
+    } catch (error) {
+        res.status(404).send(error)
+    }
+}
+
+module.exports = { all, redirect, addAmount, deleteAmount }

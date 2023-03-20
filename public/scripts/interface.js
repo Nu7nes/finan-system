@@ -1,6 +1,11 @@
-const navBarGroups = document.querySelector('#navbar-groups')
-const bodyGroups = document.querySelector('#body-groups')
+const navBarGroups = document.querySelector('#navbar-groups');
+const bodyGroups = document.querySelector('#body-groups');
+const resultsArea = document.querySelector('#results');
 
+function notContent() {
+    navBarGroups.innerHTML = `<h6>Crie um grupo</h6>`;
+    bodyGroups.innerHTML = `<h2>Nenhum grupo selecionado!</h2>`;
+}
 
 function renderGroups(array) {
     let count = false
@@ -18,32 +23,40 @@ function renderGroups(array) {
             bodyGroups.innerHTML += `<div data-id="${el._id}" class="w-100 content tab-pane fade show active" id="v-pills-${newName}" role="tabpanel"
                                          aria-labelledby="v-pills-${newName}-tab">
                                             <ul class="group-list p-0" id="income-${el._id}">
-                                            <h5 class="mt-2 ml-2 p-2 ">Receitas</h5>
-                                                <li class="list-group-item input-group d-flex flex-row justify-content-between align-items-center">
-                                                    <form class="input-group">    
-                                                        <input type=" text" class="form-control w-25" placeholder="Nome"
-                                                        aria-label="Nome" aria-describedby="basic-addon2">
-                                                        <input type=" text" class="form-control" placeholder="R$"
-                                                        aria-label="valor" aria-describedby="basic-addon2">
-                                                        <div class="input-group-append">
-                                                            <span class="input-group-text" id="basic-addon2">Adicionar</span>
-                                                        </div>
-                                                    </form>
-                                                </li>
+                                                <h5 class="mt-2 ml-2 p-2 ">Receitas</h5>
+                                                    <li class="list-group-item py-2 input-group d-flex flex-row justify-content-between align-items-center">
+                                                        <form class="input-group" id="formNewAmount" action="/new/amount" method="POST" onsubmit="amountForm">    
+                                                        
+                                                            <input name="type" type="text" value="income" hidden>
+                                                            <input name="group" type="text" value="${el._id}" hidden>
+
+                                                            <input name="name" id="inputFormAmoutn" type="text" class="form-control w-25" placeholder="Nome"
+                                                            aria-label="Nome" aria-describedby="basic-addon2" required>
+                                                            <input name="value" type="text" class="form-control" placeholder="R$"
+                                                            aria-label="valor" aria-describedby="basic-addon2" required>
+                                                            <div class="input-group-append">
+                                                                <button type="submit" class="btn btn-success" id="basic-addon2">Adicionar</button>
+                                                            </div>
+                                                        </form>
+                                                    </li>
                                             </ul>
                                             <ul class="group-list p-0" id="cost-${el._id}">
-                                            <h5 class="mt-2 ml-2 p-2 ">Despesas</h5>
-                                                <li class="list-group-item input-group d-flex flex-row justify-content-between align-items-center">
-                                                    <form class="input-group">    
-                                                        <input type=" text" class="form-control w-25" placeholder="Nome"
-                                                        aria-label="Nome" aria-describedby="basic-addon2">
-                                                        <input type=" text" class="form-control" placeholder="R$"
-                                                        aria-label="valor" aria-describedby="basic-addon2">
-                                                        <div class="input-group-append">
-                                                            <span class="input-group-text" id="basic-addon2">Adicionar</span>
-                                                        </div>
-                                                    </form>
-                                                </li>
+                                                <h5 class="mt-2 ml-2 p-2 ">Despesas</h5>
+                                                    <li class="list-group-item py-2 input-group d-flex flex-row justify-content-between align-items-center">
+                                                        <form class="input-group" id="formNewAmount" action="/new/amount" method="POST" onsubmit="amountForm">    
+                                                        
+                                                            <input name="type" type="text" value="cost" hidden>
+                                                            <input name="group" type="text" value="${el._id}" hidden>
+
+                                                            <input name="name" id="inputFormAmoutn" type="text" class="form-control w-25" placeholder="Nome"
+                                                            aria-label="Nome" aria-describedby="basic-addon2" required>
+                                                            <input name="value" type="text" class="form-control" placeholder="R$"
+                                                            aria-label="valor" aria-describedby="basic-addon2" required>
+                                                            <div class="input-group-append">
+                                                                <button type="submit" class="btn btn-success" id="basic-addon2">Adicionar</button>
+                                                            </div>
+                                                        </form>
+                                                    </li>
                                             </ul>
                                         </div>`
 
@@ -55,29 +68,38 @@ function renderGroups(array) {
                                         aria-labelledby="v-pills-${newName}-tab">
                                         <ul class="group-list p-0" id="income-${el._id}">
                                         <h5 class="mt-2 ml-2 p-2 ">Receitas</h5>
-                                            <li class="list-group-item input-group d-flex flex-row justify-content-between align-items-center">
-                                                <form class="input-group">    
-                                                    <input type=" text" class="form-control w-25" placeholder="Nome"
-                                                    aria-label="Nome" aria-describedby="basic-addon2">
-                                                    <input type=" text" class="form-control" placeholder="R$"
-                                                    aria-label="valor" aria-describedby="basic-addon2">
+                                            <li class="list-group-item py-2 py-y input-group d-flex flex-row justify-content-between align-items-center">
+                                                <form class="input-group" id="formNewAmount" action="/new/amount" method="POST" onsubmit="amountForm">    
+                                                
+                                                    <input name="type" type="text" value="income" hidden>
+                                                    <input name="group" type="text" value="${el._id}" hidden>
+
+                                                    <input name="name" id="inputFormAmoutn" type="text" class="form-control w-25" placeholder="Nome"
+                                                    aria-label="Nome" aria-describedby="basic-addon2" required>
+                                                    <input name="value" type="text" class="form-control" placeholder="R$"
+                                                    aria-label="valor" aria-describedby="basic-addon2" required>
                                                     <div class="input-group-append">
-                                                        <span class="input-group-text" id="basic-addon2">Adicionar</span>
+                                                       <button type="submit" class="btn btn-success" id="basic-addon2">Adicionar</button>
                                                     </div>
                                                 </form>
                                             </li>
                                         </ul>
                                         <ul class="group-list p-0" id="cost-${el._id}">
                                         <h5 class="mt-2 ml-2 p-2 ">Despesas</h5>
-                                            <li class="list-group-item input-group d-flex flex-row justify-content-between align-items-center">
-                                                <form class="input-group">    
-                                                    <input type=" text" class="form-control w-25" placeholder="Nome"
-                                                    aria-label="Nome" aria-describedby="basic-addon2">
-                                                    <input type=" text" class="form-control" placeholder="R$"
-                                                    aria-label="valor" aria-describedby="basic-addon2">
+                                            <li class="list-group-item py-2 input-group d-flex flex-row justify-content-between align-items-center">
+                                                <form class="input-group" id="formNewAmount" action="/new/amount" method="POST" onsubmit="amountForm">    
+                                                
+                                                    <input name="type" type="text" value="cost" hidden>
+                                                    <input name="group" type="text" value="${el._id}" hidden>
+
+                                                    <input name="name" id="inputFormAmoutn" type="text" class="form-control w-25" placeholder="Nome"
+                                                    aria-label="Nome" aria-describedby="basic-addon2" required>
+                                                    <input name="value" type="text" class="form-control" placeholder="R$"
+                                                    aria-label="valor" aria-describedby="basic-addon2" required>
                                                     <div class="input-group-append">
-                                                        <span class="input-group-text" id="basic-addon2">Adicionar</span>
+                                                        <button type="submit" class="btn btn-success" id="basic-addon2">Adicionar</button>
                                                     </div>
+                                                </form>
                                                 </form>
                                             </li>
                                         </ul>
@@ -92,36 +114,33 @@ function renderAmounts(array) {
 
     content.forEach(el => {
         let pillID = el.dataset.id;
-        array.forEach(amount => { 
+        let income = "income-" + pillID;
+        let cost = "cost-" + pillID;
+
+        array.forEach(amount => {
             let idGroup = amount.group;
             let type = amount.type;
+            if (pillID === idGroup) {
+                if (type == "income") {
 
-            let income = "income-" + pillID
-            let cost = "cost-" + pillID
-            console.log(income, cost)
-
-            if(pillID === idGroup) {
-                if(type == "income") {
                     document.getElementById(income).innerHTML += `
-                    
-                    <li class="list-group-item btn btn-light d-flex flex-row justify-content-between align-items-center">
+                    <li class="list-group-item py-0 btn btn-light d-flex flex-row justify-content-between align-items-center">
                         <p class="m-0">${amount.name}</p>
                         <h6 class="m-0">R$ ${amount.value}</h6>
-                        <button class="btn p-1 bg-transparent hover-effect">
-                            <span class="material-symbols-outlined pt-1 pb-0">
-                                delete
+                        <button id="${amount._id}" class="btn m-0 p-0 bg-transparent hover-effect" onclick="deleteThis(this)">
+                                <span class="material-symbols-outlined pt-1 pb-0">
+                                    delete
                                 </span>
                         </button>
                     </li>`
-                    
                 }
-                if(type == "cost"){
+                if (type == "cost") {
+
                     document.getElementById(cost).innerHTML += `
-                    
-                    <li class="list-group-item btn btn-light d-flex flex-row justify-content-between align-items-center">
+                    <li class="list-group-item py-0 btn btn-light d-flex flex-row justify-content-between align-items-center">
                         <p class="m-0">${amount.name}</p>
                         <h6 class="m-0">R$ ${amount.value}</h6>
-                        <button class="btn p-1 bg-transparent hover-effect">
+                        <button id="${amount._id}" class="btn p-1 bg-transparent hover-effect" onclick="deleteThis(this)">
                             <span class="material-symbols-outlined pt-1 pb-0">
                                 delete
                                 </span>
@@ -131,8 +150,13 @@ function renderAmounts(array) {
 
                 // el.innerHTML += `<div>${amount.name}</div>`
             }
-            
+
         })
     })
+    // document.getElementById(income).innerHTML += `TOTAL`
 }
 
+// function renderResults() {
+//     let t = getTime();
+//     console.log(t);
+// }
