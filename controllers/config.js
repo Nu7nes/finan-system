@@ -8,3 +8,6 @@ const getTime = async (req, res) => {
 }
 
 module.exports = { getTime }
+
+// mude para um pacote
+// ---------------------PROCURE POR MOMENT--------------------

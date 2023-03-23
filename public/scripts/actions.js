@@ -1,15 +1,19 @@
 
 document.querySelector('#deleteGroup').addEventListener('click', () => {
     let groups = document.querySelector('#navbar-groups>.active');
-    deleteGroup(groups.id)
+    if (groups.id != 'dashboard') {
+        deleteGroup(groups.id)
+    } else {
+        alert("Dashboard não pode ser removido!")
+    }
 })
 
-document.querySelector('#formNewGroup').addEventListener('submit', ()=>{
+document.querySelector('#formNewGroup').addEventListener('submit', () => {
     let name = document.getElementById('inputFormGroup').value
     alert(`O grupo ${name} foi adicionado!`)
 })
 
-function amountForm (){
+function amountForm() {
     let name = document.getElementById('inputForm').value
     alert(`${name} foi adicionado!`)
 }

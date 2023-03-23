@@ -31,6 +31,7 @@ function getGroups() {
                 notContent();
             } else {
                 renderGroups(GROUPS);
+                renderDashboard()
                 getAmounts();
             }
         })

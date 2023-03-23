@@ -1,6 +1,7 @@
 const navBarGroups = document.querySelector('#navbar-groups');
 const bodyGroups = document.querySelector('#body-groups');
-const resultsArea = document.querySelector('#results');
+
+let values = { income: [], cost: [] };
 
 function notContent() {
     navBarGroups.innerHTML = `<h6>Crie um grupo</h6>`;
@@ -14,7 +15,6 @@ function renderGroups(array) {
     array.forEach(el => {
 
         let newName = el.name.replace(/\s+/g, '-')
-
 
         if (!count) {
             navBarGroups.innerHTML += `<a id="${el._id}" class="nav-link btn active" id="v-pills-${newName}-tab" data-toggle="pill" href="#v-pills-${newName}"
@@ -58,6 +58,7 @@ function renderGroups(array) {
                                                         </form>
                                                     </li>
                                             </ul>
+                                            <ul id="results-${el._id}" class="list-group"></ul>
                                         </div>`
 
         } else {
@@ -103,19 +104,37 @@ function renderGroups(array) {
                                                 </form>
                                             </li>
                                         </ul>
+                                        <ul id="results-${el._id}" class="list-group"></ul>
                                     </div>`
         }
+
+
+
         count = true
     })
 }
 
+function renderDashboard() {
+    navBarGroups.innerHTML += `<a id="dashboard" class="nav-link m-0 p-0 ml-sm-2" data-toggle="pill" href="#v-pills-dashboard"
+                                    role="tab" aria-controls="v-pills-dashboard" aria-selected="false">
+                                    <span class="material-symbols-outlined px-3 nav-link btn btn-secondary text-light">
+                                        query_stats
+                                    </span>
+                                </a>`
+    bodyGroups.innerHTML += `<div data-id="dashboard" class="w-100 tab-pane fade" id="v-pills-dashboard" role="tabpanel"
+                                aria-labelledby="v-pills-dashboard-tab">
+                                <h1>okok</h1>
+                            </div>`
+}
+
 function renderAmounts(array) {
     let content = document.querySelectorAll('.content');
-
+    let x = 0;
     content.forEach(el => {
         let pillID = el.dataset.id;
         let income = "income-" + pillID;
         let cost = "cost-" + pillID;
+        let results = "results-" + pillID;
 
         array.forEach(amount => {
             let idGroup = amount.group;
@@ -125,28 +144,41 @@ function renderAmounts(array) {
 
                     document.getElementById(income).innerHTML += `
                     <li class="list-group-item py-0 btn btn-light d-flex flex-row justify-content-between align-items-center">
-                        <p class="m-0">${amount.name}</p>
-                        <h6 class="m-0">R$ ${amount.value}</h6>
+                        <p class="m-0 p-0 w-25 text-left">${amount.name}</p>
+                        <h6 class="m-0 p-0">R$ ${amount.value}</h6>
                         <button id="${amount._id}" class="btn m-0 p-0 bg-transparent hover-effect" onclick="deleteThis(this)">
                                 <span class="material-symbols-outlined pt-1 pb-0">
                                     delete
                                 </span>
                         </button>
                     </li>`
+
+                    values.income.push({
+                        group: amount.group,
+                        value: amount.value
+                    })
+
                 }
                 if (type == "cost") {
 
                     document.getElementById(cost).innerHTML += `
                     <li class="list-group-item py-0 btn btn-light d-flex flex-row justify-content-between align-items-center">
-                        <p class="m-0">${amount.name}</p>
-                        <h6 class="m-0">R$ ${amount.value}</h6>
+                        <p class="m-0 p-0 w-25 text-left">${amount.name}</p>
+                        <h6 class="m-0 p-0">R$ ${amount.value}</h6>
                         <button id="${amount._id}" class="btn p-1 bg-transparent hover-effect" onclick="deleteThis(this)">
                             <span class="material-symbols-outlined pt-1 pb-0">
                                 delete
                                 </span>
                         </button>
                     </li>`
+
+                    values.cost.push({
+                        group: amount.group,
+                        value: amount.value
+                    })
                 }
+
+                document.getElementById(results).innerHTML = renderResults(pillID);
 
                 // el.innerHTML += `<div>${amount.name}</div>`
             }
@@ -156,7 +188,49 @@ function renderAmounts(array) {
     // document.getElementById(income).innerHTML += `TOTAL`
 }
 
-// function renderResults() {
-//     let t = getTime();
-//     console.log(t);
-// }
+function renderResults(id) {
+    let incomes = calcResults(values.income, id);
+    let costs = calcResults(values.cost, id);
+    let lucre = calcResults(incomes, costs, "quest");
+
+
+    function render(msg, color, value) {
+        if (value == lucre) {
+            if (value < 0) {
+                return `<li class="list-group-item bg-${color} text-light d-flex justify-content-between">
+                    <p class="p-0 m-0">${msg}</p>
+                    <h6 class="p-0 m-0 text-danger">R$ ${value}</h6>
+                </li>`
+            }
+            if (value > 0) {
+                return `<li class="list-group-item bg-${color} text-light d-flex justify-content-between">
+                    <p class="p-0 m-0">${msg}</p>
+                    <h6 class="p-0 m-0 text-success">R$ ${value}</h6>
+                </li>`
+            }
+        } else {
+            return `<li class="list-group-item bg-${color} text-light d-flex justify-content-between">
+                    <p class="p-0 m-0">${msg}</p>
+                    <h6 class="p-0 m-0">R$ ${value}</h6>
+                </li>`;
+        }
+    }
+
+    return render('Total de receitas', 'success', incomes) +
+        render('Total de despesas', 'warning', costs) +
+        render('Lucro liquido', 'secondary', lucre);
+
+}
+function calcResults(array, arrayORid, quest) {
+    if (!quest) {
+        let count = array.filter(obj => { return obj.group == arrayORid });
+        let total = 0;
+        count.forEach(obj => { total += obj.value });
+        return total;
+    } else {
+        return array - arrayORid;
+    }
+}
+
+// 64189c069142dc50f61454e7
+// 64189c0e9142dc50f61454eb

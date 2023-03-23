@@ -14,7 +14,8 @@ db.on('error', ()=>{console.log("Houve um erro");})
 db.once('open', ()=>{console.log("Conectado ao DB 'dbfeira'");})
 
 app.use('/', apiRoute);
-app.use(express.static('public/scripts'))
+app.use(express.static('public/scripts'));
+app.use(express.static('public/assets'));
 app.get("/", (req, res) => {res.sendFile(__dirname+"/public/index.html")})
 
 app.listen(PORT,"192.168.1.69", () => {
