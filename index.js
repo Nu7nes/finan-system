@@ -1,8 +1,9 @@
-const PORT = "3000";
+
 const express = require('express');
 const path = require('path');
 const apiRoute = require('./routes/api');
 const mongoose = require('mongoose');
+const dotenv = require('dotenv');
 const app = express();
 
 mongoose.connect('mongodb://127.0.0.1:27017/dbfeira', {
@@ -18,6 +19,6 @@ app.use(express.static('public/scripts'));
 app.use(express.static('public/assets'));
 app.get("/", (req, res) => {res.sendFile(__dirname+"/public/index.html")})
 
-app.listen(PORT,"192.168.1.69", () => {
-    console.log("Servidor rodando - ", PORT);
+app.listen(process.env.PORT,"192.168.1.68", () => {
+    console.log("Servidor rodando - ", process.env.PORT);
 })
