@@ -1,4 +1,4 @@
-const ADDRESS = "http://192.168.1.69:3000";
+const ADDRESS = "http://192.168.1.70:3000";
 let GROUPS = [];
 let AMOUNTS = [];
 

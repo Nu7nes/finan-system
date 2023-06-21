@@ -1,10 +1,10 @@
-const express = require('express');
-const config = require('../controllers/config')
-const amountController = require('../controllers/amountController');
-const groupController = require('../controllers/groupController');
-const path = require('path')
+import express from 'express';
+import config from '../controllers/config.js';
+import amountController from '../controllers/amountController.js';
+import groupController from '../controllers/groupController.js';
+import path from 'path';
 const router = express.Router();
-const cors = require('cors');
+import cors from 'cors';
 
 const options = {
     origin: "http://localhost:3000"
@@ -13,9 +13,9 @@ const options = {
 // router.get('/', (req, res) => { res.render('/public/index') });
 // router.get('/', (req, res) => { res.sendFile(path.join(__dirname, 'public')) })
 router.get('/time', config.getTime);
-router.get('/amounts', amountController.all)
+router.get('/amounts', amountController.all);
 router.get('/:type/:group', amountController.redirect);
-router.get('/groups', groupController.all)
+router.get('/groups', groupController.all);
 router.get('/group/:group', groupController.same);
 
 
@@ -27,4 +27,4 @@ router.delete('/deleteAmount', express.json(), amountController.deleteAmount);
 // router.post('/', express.urlencoded({ extended: true }), linkController.addLink);
 
 
-module.exports = router;
+export default router;

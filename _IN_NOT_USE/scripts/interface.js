@@ -107,9 +107,6 @@ function renderGroups(array) {
                                         <ul id="results-${el._id}" class="list-group"></ul>
                                     </div>`
         }
-
-
-
         count = true
     })
 }

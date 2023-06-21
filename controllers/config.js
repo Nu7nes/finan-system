@@ -7,7 +7,7 @@ const getTime = async (req, res) => {
     }
 }
 
-module.exports = { getTime }
+export default { getTime }
 
 // mude para um pacote
 // ---------------------PROCURE POR MOMENT--------------------

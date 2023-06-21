@@ -1,8 +1,8 @@
-const Amount = require('../models/Amount');
+import Amount from '../models/Amount.js';
 
 const all = async (req, res) => {
     try {
-        let docs = await Amount.find()
+        let docs = await find()
         res.json(JSON.stringify(docs))
     } catch (error) {
         res.send(error)
@@ -13,7 +13,7 @@ const redirect = async (req, res) => {
     let type = req.params.type;
     let group = req.params.group;
     try {
-        let doc = await Amount.find({ type }).find({ group })
+        let doc = await find({ type }).find({ group })
         res.send(doc)
     } catch (error) {
         res.send(error);
@@ -34,7 +34,7 @@ const deleteAmount = async (req, res) => {
     let id = req.body.id;
     // let group = new Group(req.params)
     try {
-        await Amount.findByIdAndDelete(id);
+        await findByIdAndDelete(id);
         // res.send(id)
         res.status(200).send(id);
     } catch (error) {
@@ -42,4 +42,4 @@ const deleteAmount = async (req, res) => {
     }
 }
 
-module.exports = { all, redirect, addAmount, deleteAmount }
+export default { all, redirect, addAmount, deleteAmount }
