@@ -3,7 +3,7 @@ import Amount from '../models/Amount.js';
 
 const all = async (req, res) => {
     try {
-        let docs = await find({})
+        let docs = await Group.find({})
         res.json(JSON.stringify(docs))
     } catch (error) {
         res.send(error)
