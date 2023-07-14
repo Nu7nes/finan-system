@@ -1,7 +1,7 @@
 class Group {
     constructor(name) {
-        this.id = name;
-        this.text = name;
+        this.name = name;
+        this.active = false;
     }
 }
 

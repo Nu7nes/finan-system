@@ -2,7 +2,18 @@ import Amount from '../models/Amount.js';
 
 const all = async (req, res) => {
     try {
-        let docs = await find()
+        let docs = await Amount.find()
+        res.json(JSON.stringify(docs))
+    } catch (error) {
+        res.send(error)
+    }
+}
+
+const byId = async (req, res) => {
+    let id = req.params.id
+    // console.log(id);
+    try {
+        let docs = await Amount.find({group: id})
         res.json(JSON.stringify(docs))
     } catch (error) {
         res.send(error)
@@ -24,10 +35,12 @@ const addAmount = async (req, res) => {
     let amount = new Amount(req.body)
     try {
         let doc = await amount.save();
-        res.redirect('/');
+        res.send(doc);
     } catch (error) {
-        console.log(error);
+        res.status(404).send(error);
     }
+
+    
 }
 
 const deleteAmount = async (req, res) => {
@@ -42,4 +55,4 @@ const deleteAmount = async (req, res) => {
     }
 }
 
-export default { all, redirect, addAmount, deleteAmount }
+export default { all, byId, redirect, addAmount, deleteAmount }

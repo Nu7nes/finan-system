@@ -14,15 +14,18 @@ const options = {
 // router.get('/', (req, res) => { res.sendFile(path.join(__dirname, 'public')) })
 router.get('/time', config.getTime);
 router.get('/amounts', amountController.all);
+router.get('/amounts/:id', amountController.byId)
 router.get('/:type/:group', amountController.redirect);
 router.get('/groups', groupController.all);
 router.get('/group/:group', groupController.same);
 
 
-router.post('/new/amount', express.urlencoded({ extended: true }), amountController.addAmount);
-router.post('/new/group', express.urlencoded({ extended: true }), groupController.addGroup);
+// router.post('/new/amount', express.urlencoded({ extended: true }), amountController.addAmount);
+router.post('/new/amount', express.json(), amountController.addAmount);
+// router.post('/new/group', express.urlencoded({ extended: true }), groupController.addGroup);
+router.post('/new/group', express.json(), groupController.addGroup);
 
-router.delete('/deleteGroup', express.json(), groupController.deleteGroup);
+router.put('/deleteGroup', express.json(), groupController.deleteGroup);
 router.delete('/deleteAmount', express.json(), amountController.deleteAmount);
 // router.post('/', express.urlencoded({ extended: true }), linkController.addLink);
 
