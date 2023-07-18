@@ -6,35 +6,31 @@ import SideBar from './components/SideBar';
 import Pages from './components/pages/Pages';
 import { useSelector } from 'react-redux';
 import { motion } from 'framer-motion'
+import { ThemeProvider, styled } from 'styled-components';
+import { theme } from './components/styled/Theme.styed';
 
+const Background = styled.div`
+    width: 100%;
+    height: 30vh;
+    border-radius: 0 0 50px 50px;
+    position: absolute;
+    top: 0;
+    z-index: -1;
+    background-color: ${props => props.theme.colors.primary};
+`
 
 function App() {
 
-  // const [sideBar, setSideBar] = useState(false);
   const sideBar = useSelector((state) => state.sidebar.open)
-  // console.log(sideBar);
-  //   function handleSideBar() {
-  //       let state = !sideBar;
-  //       setSideBar(state)
-  //   }
-  // const [test, setTest] = useState('')
-
-  // useEffect(() => {
-  //   fetch('/time').then(res => res.json()).then(json => {
-
-  //     let data = new Date(parseInt(json))
-  //     console.log(data);
-  //     setTest(data.toString())
-  //   })
-  // }, [])
 
   return (
-    <div className="App">
-      <Header />
-      <Pages />
-      {sideBar ? <SideBar /> : ''}
+    <ThemeProvider theme={theme}>
+        <Background />
+        <Header />
+        <Pages />
+        {sideBar ? <SideBar /> : ''}
 
-    </div>
+    </ThemeProvider>
   );
 }
 

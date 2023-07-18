@@ -47,9 +47,11 @@ const deleteAmount = async (req, res) => {
     let id = req.body.id;
     // let group = new Group(req.params)
     try {
-        await findByIdAndDelete(id);
+        await Amount.findByIdAndDelete(id);
         // res.send(id)
-        res.status(200).send(id);
+        res.json(JSON.stringify(id))
+        // res.status(200).send(id);
+
     } catch (error) {
         res.status(404).send(error)
     }

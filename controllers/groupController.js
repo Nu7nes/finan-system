@@ -52,7 +52,7 @@ const deleteGroup = async (req, res) => {
     let id = req.body.id;
     try {
         await Group.findByIdAndDelete(id);
-        // await Amount.find({ group: id }).deleteMany()
+        // await Amount.remove({ group: id })
         res.json(JSON.stringify(id))
         // res.status(200).send(id);
 

@@ -18,7 +18,7 @@ export const addAmount = createAsyncThunk('amounts/addAmount', async (object) =>
     });
 
     if (!response.ok) {
-      throw new Error('Erro ao adicionar grupo');
+      throw new Error('Erro ao adicionar amount');
     }
 
     const data = await response.json();
@@ -29,27 +29,27 @@ export const addAmount = createAsyncThunk('amounts/addAmount', async (object) =>
   }
 });
 
-// export const removeGroup = createAsyncThunk('groups/removeGroup', async (id) => {
-//   try {
-//     const response = await fetch('/deleteGroup', {
-//       method: 'PUT',
-//       headers: {
-//         'Content-Type': 'application/json'
-//       },
-//       body: JSON.stringify({ id: id }) // Passa o nome como parâmetro
-//     });
+export const removeAmount = createAsyncThunk('amounts/deleteAmount', async (id) => {
+  try {
+    const response = await fetch('/deleteAmount', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ id: id }) // Passa o nome como parâmetro
+    });
 
-//     if (!response.ok) {
-//       throw new Error('Erro ao adicionar grupo');
-//     }
+    if (!response.ok) {
+      throw new Error('Erro ao remover amount');
+    }
 
-//     const data = await response.json();
-//     return data; // Retorna a resposta da API se necessário
-//   } catch (error) {
-//     console.error('Erro:', error.message);
-//     throw error;
-//   }
-// });
+    const data = await response.json();
+    return data; // Retorna a resposta da API se necessário
+  } catch (error) {
+    console.error('Erro:', error.message);
+    throw error;
+  }
+});
 
 export const amountSlice = createSlice({
     name: 'amounts',
@@ -81,14 +81,14 @@ export const amountSlice = createSlice({
           state.loading = false;
           state.error = action.error.message;
         })
-        // .addCase(removeGroup.fulfilled, (state, action) => {
-        //   state.loading = false;
-        //   state.data = state.data.filter(group => group.id !== action.payload.id); // Remove o grupo da lista de dados
-        // })
-        // .addCase(removeGroup.rejected, (state, action) => {
-        //   state.loading = false;
-        //   state.error = action.error.message;
-        // });
+        .addCase(removeAmount.fulfilled, (state, action) => {
+          state.loading = false;
+          state.data = state.data.filter(group => group.id !== action.payload.id); // Remove o grupo da lista de dados
+        })
+        .addCase(removeAmount.rejected, (state, action) => {
+          state.loading = false;
+          state.error = action.error.message;
+        });
     },
     
   });

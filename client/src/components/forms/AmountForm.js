@@ -3,15 +3,19 @@ import { useDispatch } from "react-redux";
 import styled from 'styled-components'
 import { add, addGroup } from "../../slices/groupSlice";
 import { change } from "../../slices/pagesSlice";
+import { addAmount } from "../../slices/amountSlice";
 
 const Form = styled.form`
     
 `
-const CheckButton = styled.button`
+const CheckButton = styled.a`
     background-color: ${props => props.activate ? 'green':''};
+    color: ${props => props.activate ? 'white' : ''};
+    margin: 10px;
+    cursor: pointer;
 `
 
-function AmountForm() {
+function AmountForm(props) {
     const [type, setType] = useState('')
     const [name, setName] = useState('')
     const [price, setPrice] = useState('')
@@ -30,10 +34,10 @@ function AmountForm() {
             type: type,
             name: name,
             value: price,
-            group: ''
+            group: props.groupid
         }
         try {
-            await dispatch(addGroup({}));
+            await dispatch(addAmount(object));
             console.log('Conta adicionado com sucesso');
         } catch (error) {
             console.error('Erro ao adicionar grupo:', error.message);

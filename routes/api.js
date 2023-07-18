@@ -26,7 +26,7 @@ router.post('/new/amount', express.json(), amountController.addAmount);
 router.post('/new/group', express.json(), groupController.addGroup);
 
 router.put('/deleteGroup', express.json(), groupController.deleteGroup);
-router.delete('/deleteAmount', express.json(), amountController.deleteAmount);
+router.put('/deleteAmount', express.json(), amountController.deleteAmount);
 // router.post('/', express.urlencoded({ extended: true }), linkController.addLink);
 
 

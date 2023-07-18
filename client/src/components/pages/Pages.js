@@ -1,21 +1,21 @@
 import React from "react";
-import Dashboard from "./Dashboard";
+import Dashboard from "./dashboard/Dashboard";
 import Main from "../Main";
 import { useSelector } from "react-redux";
 
-function Content() {
+function Pages() {
 
     const groups = useSelector((state) => state.groups);
     const pages = useSelector((state) => state.pages);
     
 
     return (
-        <div>
-            <Dashboard></Dashboard>
+        <main>
+            {pages.current === 'dashboard' ? <Dashboard /> : ''}
             {groups.data.map(group => group._id === pages.current ? <Main group={group} /> : '')}
-        </div>
+        </main>
 
     )
 }
 
-export default Content;
+export default Pages;

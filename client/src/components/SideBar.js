@@ -1,31 +1,32 @@
 import React, { useState } from "react";
 import styled from 'styled-components';
 import Groups from './header/Groups';
-import Link from "./styled/Link.styled";
-import Button from "./styled/Button.styled";
+import Button from "./styled/ActionButton.styled";
 import Modal from "./styled/Modal.styled";
-import GroupForm from './styled/GroupForm.styled';
+import GroupForm from './forms/GroupForm';
 import { motion } from "framer-motion";
+import {RxPlus} from 'react-icons/rx'
 
 const Component = styled.div`
     width: 100%;
-    height: 95vh;
+    height: calc(100% - 7vh);
     position: absolute !important;
-    background-color: black;
-    top: 0;
+    background-color: ${props => props.theme.colors.primary};
+    top: 7vh;
     right: 0;
-    display: flex;
-    justify-content: end;
-`
-const Menu = styled.ul`
-    width: 90%;
-    height: 100%;
-    padding: 0 !important;
-    background-color: red;
     display: flex;
     flex-direction: column;
     gap: 2em;
 `
+// const Menu = styled.ul`
+//     width: 90%;
+//     height: 100%;
+//     padding: 0 !important;
+//     background-color: red;
+//     display: flex;
+//     flex-direction: column;
+//     gap: 2em;
+// `
 const Top = styled.ul`
     align-self: center;
     margin-top: 2em;
@@ -46,36 +47,25 @@ function SideBar(props) {
     }
 
 
-    const item = {
-        hidden: { x: 100 + '%' },
-        show: { x: 0 }
-    }
+    // const item = {
+    //     hidden: { x: 100 + '%' },
+    //     show: { x: 0 }
+    // }
     return (
+        <Component>
+            <Top>
+                <li key='add' onClick={handleModal}><Button bgcolor={'blue'}>Adicionar grupo<RxPlus /></Button></li>
+                
+            </Top>
+            <Groups />
+            {modal ?
+                <Modal onCloseModal={handleModal}>
+                    <GroupForm
+                    />
 
-        <motion.div
-            initial="hidden"
-            animate="show"
-        >
+                </Modal> : ''}
+        </Component>
 
-            <motion.div variants={item}>
-                <Component>
-                    <Menu>
-                        <Top>
-                            <li key='add' onClick={handleModal}><Button bgcolor={'blue'}>Add</Button></li>
-                            <li key='1'><Button bgcolor={'blue'}>Test</Button></li>
-                            <li key='2'><Button bgcolor={'blue'}>Test</Button></li>
-                        </Top>
-                        <Groups />
-                        {modal ?
-                            <Modal onCloseModal={handleModal}>
-                                <GroupForm
-                             />
-
-                            </Modal> : ''}
-                    </Menu>
-                </Component>
-            </motion.div>
-        </motion.div>
     )
 }
 
