@@ -8,7 +8,8 @@ import {
     Grid,
     useMediaQuery,
 } from "@mui/material";
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 export default function Panel({ children }) {
     const matches = useMediaQuery("(min-width:600px)");
@@ -18,6 +19,15 @@ export default function Panel({ children }) {
         // setMenuState(state)
         console.log(state);
     }
+
+    useEffect(() => {
+        axios
+            .get("http://localhost:3000/api/groups")
+            .then((res) => {
+                console.log(res);
+            })
+            .catch(console.log);
+    }, []);
 
     return (
         <Box>
@@ -44,7 +54,12 @@ export default function Panel({ children }) {
                 )}
                 <Grid item justifySelf="stretch" width="100%">
                     <Header />
-                    <Box mx={{md: 0, lg: 6, xl: 10}} my={{md: 0, lg: 2, xl: 4}}>{children}</Box>
+                    <Box
+                        mx={{ md: 0, lg: 6, xl: 10 }}
+                        my={{ md: 0, lg: 2, xl: 4 }}
+                    >
+                        {children}
+                    </Box>
                     {/* <Routes>
                         <Route
                             index
